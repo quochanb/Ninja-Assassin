@@ -167,9 +167,12 @@ public class Player : Character
 
     public void Jump()
     {
-        isJumping = true;
-        ChangeAnim("jump");
-        rb.AddForce(jumpForce * Vector2.up);
+        if (isGrounded)
+        {
+            isJumping = true;
+            ChangeAnim("jump");
+            rb.AddForce(jumpForce * Vector2.up);
+        }
     }
 
     internal void SavePoint()
