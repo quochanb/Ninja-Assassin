@@ -18,7 +18,7 @@ public class Player : Character
     private bool isGrounded = true;
     private bool isJumping = false;
     private bool isAttack = false;
-    //private bool isDeath = false;
+    private bool isClick = true;
 
     private float horizontal;
 
@@ -157,6 +157,22 @@ public class Player : Character
         Invoke(nameof(ResetAttack), 0.5f);
 
         Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
+    }
+
+    public void ClickButton()
+    {
+        if (isClick)
+        {
+            Throw();
+            isClick = false;
+
+            Invoke(nameof(EnableClick), 1f);
+        }
+    }
+
+    private void EnableClick()
+    {
+        isClick = true;
     }
 
     private void ResetAttack()
