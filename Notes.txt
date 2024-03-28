@@ -1,0 +1,48 @@
+1. PlayerPrefs: sử dụng để lưu dữ liệu (ví dụ: coin, point, ...)
+	private void Awake()
+	{
+    		coin = PlayerPrefs.GetInt("coin", 0);
+	}
+
+	if (collision.gameObject.tag == "Coin")
+	{
+    		coin++;
+    		PlayerPrefs.SetInt("coin", coin);
+	}
+
+2. Cấu trúc của 1 Singleton:
+	private static UImanager instance;
+	public static UImanager Instance;
+	{
+		get
+		{
+			if(instance == null)
+				instance = FindObjectOfType<UIManager>();
+		}
+	}
+
+hoặc
+
+	public static UImanager instance;
+	private void Awake()
+	{
+		instance = this;
+	}
+
+3. float horizontal = Input.GetAxisRaw("Horizontal");
+	biến float không bao giờ so sánh == 0 hoặc != 0 (vì có thể có sai số)
+	=> Mathf.Abs(horizontal) > 0.1f
+
+4. Khi quay đầu player thì ko nên sử dụng transform.localScale vì ko optimize game
+	=> sử dụng transform.rotation = Quaternion.Euler(new Vector3(0, horizontal > 0 ? 0 : 180, 0));
+
+5. Thứ tự đặt các function trong C# scripts:
+	1 -> Các hàm build-in trong Unity (Start, Update,...)
+	2 -> Các hàm kế thừa
+	3 -> Các hàm tự định nghĩa
+
+6. Thứ tự đặt các variable:
+	1 -> Các biến Const
+	2 -> [SerializeField]
+	3 -> Private
+	4 -> Public
